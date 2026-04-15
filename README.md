@@ -120,14 +120,16 @@ This script:
 
 ---
 
-## 🛠️ Tools Used
+## 🛠️ Tools & Skills
 
-| Tool | Purpose |
+| Tool / Skill | Usage in this Project |
 |---|---|
-| Power BI Desktop | Dashboard design and DAX measures |
-| SQL | Data extraction and cleaning |
+| Power BI Desktop | Dashboard design, DAX measures, interactive visuals |
+| MySQL | Data extraction, aggregation, window functions, CTEs |
 | Microsoft Excel | Data pre-processing and validation |
-| CSV | Source data format |
+| SQL (Advanced) | `ROW_NUMBER()`, `SUM OVER()`, `CASE WHEN`, `DATEDIFF`, CTEs |
+| Data Visualization | KPI cards, donut charts, bar charts, maps, line charts |
+| Data Analysis | YoY trend analysis, regional segmentation, profitability ranking |
 
 ---
 
@@ -140,7 +142,12 @@ This script:
 
 ---
 
-## 📬 Contact
+## 🌐 Portfolio & Contact
 
+- 🌍 Portfolio: [srivatchan2004.github.io](https://srivatchan2004.github.io)
 - 🔗 LinkedIn: [linkedin.com/in/srivatchan2004](https://www.linkedin.com/in/srivatchan2004/)
 - 🐙 GitHub: [github.com/srivatchan2004](https://github.com/srivatchan2004)
+
+---
+
+> **Topics:** `power-bi` `data-analytics` `sql` `dashboard` `python` `mysql` `data-visualization` `retail-analytics`
