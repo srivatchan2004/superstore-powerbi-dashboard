@@ -18,6 +18,13 @@ superstore-powerbi-dashboard/
 ├── superstore_retail_analysis.pbix     ← Power BI report file
 ├── data/
 │   └── superstore_data.csv             ← Source dataset
+├── sql/
+│   ├── 00_setup.sql                    ← Create DB, table & load CSV
+│   ├── 01_kpi_summary.sql              ← Headline KPI totals
+│   ├── 02_sales_by_category_and_segment.sql
+│   ├── 03_regional_performance.sql
+│   ├── 04_top_states_by_sales_profit.sql
+│   └── 05_yoy_growth_rate.sql
 └── images/
     └── dash.png                        ← Dashboard screenshot
 ```
@@ -70,6 +77,46 @@ A single-page Power BI report built to analyze retail KPIs across categories, se
 - **COD** is the most preferred payment mode at 41%
 - **Standard Class** shipping accounts for the majority of orders (71K)
 - **Phones** are the best-selling sub-category at 62K
+
+---
+
+## 🗄️ SQL Queries
+
+The `sql/` folder contains standalone MySQL queries that reproduce and extend the dashboard analysis. All queries run against the **`superstore_db`** database created by the setup script.
+
+### Database Setup (run once)
+
+**Tool required:** MySQL Workbench or MySQL command line
+
+**Step 1 — Enable local file import** (MySQL Workbench → Edit → Preferences → SQL Editor → tick *Allow loading local data*)
+
+**Step 2 — Run the setup script**
+
+```sql
+-- In MySQL Workbench: open sql/00_setup.sql and click Execute (⚡)
+-- Or via command line:
+mysql -u root -p --local-infile=1 < sql/00_setup.sql
+```
+
+This script:
+- Creates database `superstore_db`
+- Creates table `superstore_sales` with correct column types
+- Loads `data/SuperStore_Sales_Dataset.csv` using `LOAD DATA LOCAL INFILE`
+- Converts dates from `DD-MM-YYYY` format automatically
+- Runs a sanity check (expects ~5,901 rows)
+
+> **Note:** The CSV file path in `00_setup.sql` is pre-filled for this machine. If you clone the repo elsewhere, update line 47 to your local path.
+
+### Query Files
+
+| File | Description | Key Technique |
+|---|---|---|
+| [00_setup.sql](sql/00_setup.sql) | Create DB, create table, load CSV | `LOAD DATA LOCAL INFILE`, `STR_TO_DATE` |
+| [01_kpi_summary.sql](sql/01_kpi_summary.sql) | Headline KPIs: sales, profit, margin, avg delivery days | Aggregations, `DATEDIFF` |
+| [02_sales_by_category_and_segment.sql](sql/02_sales_by_category_and_segment.sql) | Sales & profit across 3 categories × 3 segments | Window function (`SUM OVER`) |
+| [03_regional_performance.sql](sql/03_regional_performance.sql) | Sales, profit, margin, avg delivery days per region | Window function, `DATEDIFF` |
+| [04_top_states_by_sales_profit.sql](sql/04_top_states_by_sales_profit.sql) | Top 10 states ranked by total sales with profit margin | CTE, `ROW_NUMBER()` |
+| [05_yoy_growth_rate.sql](sql/05_yoy_growth_rate.sql) | 2019 vs 2020 growth % for sales, profit, and quantity | CTE, `CASE WHEN` conditional aggregation |
 
 ---
 
